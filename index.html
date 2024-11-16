@@ -1,0 +1,313 @@
+<html><head><base href="http://www.google.com/">
+<style>
+  body {
+    margin: 0;
+    font-family: arial, sans-serif;
+    background: white;
+  }
+  
+  .logo {
+    text-align: center;
+    margin-top: 20px;
+    transform: scale(0.6);
+  }
+  
+  .search-box {
+    text-align: center;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 584px;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border: 1px solid #dfe1e5;
+    border-radius: 24px;
+  }
+  
+  .search-buttons {
+    text-align: center;
+    padding-top: 18px;
+  }
+  
+  .button {
+    background-color: #f8f9fa;
+    border: 1px solid #f8f9fa;
+    border-radius: 4px;
+    color: #3c4043;
+    font-size: 14px;
+    margin: 11px 4px;
+    padding: 0 16px;
+    height: 36px;
+    cursor: pointer;
+  }
+  
+  .search-results {
+    max-width: 652px;
+    margin: 20px auto;
+    padding: 0 20px;
+  }
+  
+  .result {
+    margin-bottom: 30px;
+    cursor: pointer;
+  }
+  
+  .result h3 {
+    color: #1a0dab;
+    font-size: 20px;
+    margin: 0;
+    font-weight: normal;
+  }
+  
+  .result .url {
+    color: #006621;
+    font-size: 14px;
+    margin: 4px 0;
+  }
+  
+  .result .snippet {
+    color: #545454;
+    font-size: 14px;
+    line-height: 1.58;
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 1000;
+    overflow-y: auto;
+  }
+
+  .search-header {
+    padding: 20px;
+    border-bottom: 1px solid #dfe1e5;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-header .logo {
+    transform: scale(0.3);
+    margin: 0;
+  }
+
+  .search-header .search-input {
+    margin: 0 20px;
+  }
+
+  .translate-option {
+    color: #1a0dab;
+    font-size: 14px;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+
+  .nav-tabs {
+    display: flex;
+    padding: 0 20px;
+    border-bottom: 1px solid #dfe1e5;
+  }
+
+  .tab {
+    padding: 15px 20px;
+    color: #5f6368;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+  }
+
+  .tab.active {
+    color: #1a73e8;
+    border-bottom: 3px solid #1a73e8;
+  }
+
+  .image-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .image-result {
+    cursor: pointer;
+  }
+
+  .image-result img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="logo">
+  <!-- Previous Google SVG Logo -->
+  <svg width="272" height="92" xmlns="http://www.w3.org/2000/svg">
+    <path d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#EA4335"/>
+    <path d="M41.75 24.95c-7.31 0-13.42 6.12-13.42 13.42s6.12 13.42 13.42 13.42c7.31 0 13.42-6.12 13.42-13.42s-6.12-13.42-13.42-13.42zm0 21.48c-4.44 0-8.06-3.62-8.06-8.06s3.62-8.06 8.06-8.06 8.06 3.62 8.06 8.06-3.62 8.06-8.06 8.06z" fill="#4285F4"/>
+    <path d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#FBBC05"/>
+    <path d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z" fill="#4285F4"/>
+    <path d="M225 3v65h-9.5V3h9.5z" fill="#34A853"/>
+  </svg>
+</div>
+
+<div class="search-box">
+  <input type="text" class="search-input" placeholder="Search Google or type a URL">
+</div>
+
+<div class="search-buttons">
+  <button class="button">Google Search</button>
+  <button class="button">I'm Feeling Lucky</button>
+</div>
+
+<div class="modal">
+  <div class="search-header">
+    <div class="logo">
+      <!-- Same Google SVG Logo as above -->
+      <svg width="272" height="92" xmlns="http://www.w3.org/2000/svg">
+        <path d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#EA4335"/>
+        <path d="M41.75 24.95c-7.31 0-13.42 6.12-13.42 13.42s6.12 13.42 13.42 13.42c7.31 0 13.42-6.12 13.42-13.42s-6.12-13.42-13.42-13.42zm0 21.48c-4.44 0-8.06-3.62-8.06-8.06s3.62-8.06 8.06-8.06 8.06 3.62 8.06 8.06-3.62 8.06-8.06 8.06z" fill="#4285F4"/>
+        <path d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#FBBC05"/>
+        <path d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z" fill="#4285F4"/>
+        <path d="M225 3v65h-9.5V3h9.5z" fill="#34A853"/>
+      </svg>
+    </div>
+    <input type="text" class="search-input" placeholder="Search Google or type a URL">
+  </div>
+
+  <div class="nav-tabs">
+    <div class="tab active" data-tab="all">All</div>
+    <div class="tab" data-tab="images">Images</div>
+  </div>
+
+  <div class="search-results"></div>
+  <div class="image-results" style="display: none;"></div>
+</div>
+
+<script>
+const searchInput = document.querySelector('.search-input');
+const searchResults = document.querySelector('.search-results');
+const imageResults = document.querySelector('.image-results');
+const buttons = document.querySelectorAll('.button');
+const modal = document.querySelector('.modal');
+const tabs = document.querySelectorAll('.tab');
+
+const fakeResults = [
+  {
+    title: "Understanding Quantum Computing: A Beginner's Guide",
+    url: "https://www.quantumscience.edu/intro-guide",
+    snippet: "Explore the fascinating world of quantum computing. Learn about qubits, quantum entanglement, and how this revolutionary technology is shaping our future..."
+  },
+  {
+    title: "L'Intelligence Artificielle dans la Médecine Moderne",
+    url: "https://www.tech-sante.fr/ia-medicine",
+    snippet: "Découvrez comment l'IA transforme le secteur de la santé. [Translate this page]"
+  },
+  {
+    title: "Climate Change: Latest Research and Solutions",
+    url: "https://www.environmentalscience.org/climate-studies",
+    snippet: "Comprehensive analysis of current climate change research, including potential solutions and technological innovations for a sustainable future..."
+  },
+  {
+    title: "人工知能と機械学習の最新動向",
+    url: "https://www.tech-japan.co.jp/ai-trends",
+    snippet: "AI・機械学習の最新トレンドについて詳しく解説します。[Translate this page]"
+  },
+  {
+    title: "Space Exploration: Next Frontier in Human Achievement",
+    url: "https://www.space-science.edu/exploration",
+    snippet: "Learn about upcoming space missions, technological advances in space travel, and the potential for human colonization of other planets..."
+  }
+];
+
+const imageSearchResults = [
+  { url: "https://i.imgur.com/DqEg2mG.jpg", title: "Funny Cat Meme", alt: "Cat sitting at dinner table with sophisticated expression" },
+  { url: "https://i.imgur.com/ICDjZYq.jpg", title: "Distracted Boyfriend Meme", alt: "Man looking back at another woman while with girlfriend" },
+  { url: "https://i.imgur.com/Z5BxyXk.jpg", title: "Drake Hotline Bling Meme", alt: "Drake gesturing no and yes in two panel meme format" },
+  { url: "https://i.imgur.com/uKNBn0F.jpg", title: "Woman Yelling at Cat Meme", alt: "Woman yelling at confused white cat at dinner table" },
+  { url: "https://i.imgur.com/KFEHV3f.jpg", title: "This is Fine Dog Meme", alt: "Dog sitting in burning room saying this is fine" },
+  { url: "https://i.imgur.com/9PpUh5f.jpg", title: "Doge Meme", alt: "Shiba Inu dog with comic sans text" },
+  { url: "https://i.imgur.com/7w5baf9.jpg", title: "Success Kid Meme", alt: "Baby making fist pump with determined expression" },
+  { url: "https://i.imgur.com/XkU4Ajf.jpg", title: "One Does Not Simply Meme", alt: "Boromir from Lord of the Rings saying one does not simply" }
+];
+
+function generateResults(type = 'all') {
+  modal.style.display = 'block';
+  
+  if (type === 'all') {
+    searchResults.style.display = 'block';
+    imageResults.style.display = 'none';
+    searchResults.innerHTML = '';
+
+    // Add translation option for non-English results
+    const translateDiv = document.createElement('div');
+    translateDiv.className = 'translate-option';
+    translateDiv.innerHTML = 'Translate non-English results to English';
+    translateDiv.addEventListener('click', () => {
+      window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    });
+    searchResults.appendChild(translateDiv);
+
+    // Add regular results
+    fakeResults.forEach(result => {
+      const resultDiv = document.createElement('div');
+      resultDiv.className = 'result';
+      resultDiv.innerHTML = `
+        <h3>${result.title}</h3>
+        <div class="url">${result.url}</div>
+        <div class="snippet">${result.snippet}</div>
+      `;
+      resultDiv.addEventListener('click', () => {
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+      });
+      searchResults.appendChild(resultDiv);
+    });
+  } else {
+    searchResults.style.display = 'none';
+    imageResults.style.display = 'grid';
+    imageResults.innerHTML = '';
+
+    imageSearchResults.forEach(image => {
+      const imageDiv = document.createElement('div');
+      imageDiv.className = 'image-result';
+      imageDiv.innerHTML = `
+        <img src="${image.url}" alt="${image.alt}" title="${image.title}">
+      `;
+      imageDiv.addEventListener('click', () => {
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+      });
+      imageResults.appendChild(imageDiv);
+    });
+  }
+}
+
+searchInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    generateResults();
+  }
+});
+
+buttons.forEach(button => {
+  button.addEventListener('click', () => {
+    generateResults();
+  });
+});
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    generateResults(tab.dataset.tab);
+  });
+});
+</script>
+
+</body></html>
